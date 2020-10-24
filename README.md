@@ -1,7 +1,7 @@
-# 20,000 Lightyears Into Space: Refueled
-Taking the old "20,000 Lightyears Into Space" and bringing it up to modern standards.
+# lightyears-refueled
+Taking the old "20,000 Lightyears Into Space" and bringing it to Python 3 and GPL 3.
 
-### Old README by Jack Whitham for version 1.4:
+## Old README by Jack Whitham:
 20,000 Light-Years Into Space
 version 1.4
 
