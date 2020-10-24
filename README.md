@@ -1,9 +1,12 @@
-                    
+# lightyears-refueled
+Taking the old "20,000 Lightyears Into Space" and bringing it to Python 3 and GPL 3.
+
+## Old README by Jack Whitham:
 20,000 Light-Years Into Space
 version 1.4
 
 Instructions:
-    
+
     Please refer to the HTML documents in the game directory.
     For game updates, please see http://www.jwhitham.org/
 
@@ -27,7 +30,7 @@ License:
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+    Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA  02110-1301  USA
 
 
@@ -67,10 +70,10 @@ List of files, with associated copyrights:
     ./data/menuicon.png
     (source: http://www.xsane.org/)
 
-    Files that come from public domain sound archives and 
+    Files that come from public domain sound archives and
     are not copyrighted:
     ./audio/earthquake.ogg
-    (source: 
+    (source:
     http://simplythebest.net/sounds/WAV/sound_effects_WAV/nature_wavs.html)
 
     Files that are copyright (C) 2011 Cris Grada
@@ -84,9 +87,3 @@ List of files, with associated copyrights:
     ./data/node_u.png
     ./data/upgrade.png
     ./data/well.png
-
-
-
-
-
-
