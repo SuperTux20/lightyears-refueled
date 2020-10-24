@@ -4,7 +4,7 @@ code/__pycache__/
 *$py.class
 
 # Old Python 2 files from the original game
-*.py.bak
+*.bak
 
 # C extensions
 *.so
