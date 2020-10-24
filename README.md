@@ -3,6 +3,12 @@
 Taking the game "20,000 Lightyears Into Space" and bringing it up to modern standards.
 [Jack Whitham's 20,000 Lightyears Into Space, version 1.4](https://www.jwhitham.org/20kly/)
 
+## Issues with current version
+
+No sound plays
+Cannot click on buildings
+Game crashes when building is built by player
+
 ## Instructions
 
   Please refer to the HTML documents in the game directory.

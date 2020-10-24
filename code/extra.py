@@ -81,8 +81,7 @@ def Make_Quake_SF_Points(off):
     crosses_centre = True
     (x,y) = GRID_CENTRE
     d = 7
-    check = [ (x - d, y - d), (x + d, y + d),
-            (x - d, y + d), (x + d, y - d) ]
+    check = [(x-d,y-d),(x+d,y+d),(x-d,y+d),(x+d,y-d)]
     (w,h) = GRID_SIZE
 
     while ( crosses_centre ):
@@ -93,11 +92,7 @@ def Make_Quake_SF_Points(off):
             start = (-off, random.randint(0,h - 1))
             finish = (h + off, random.randint(0,h - 1))
 
-        crosses_centre = (
-                intersect.Intersect((start, finish),
-                    (check[ 0 ], check[ 1 ]))
-                or intersect.Intersect((start, finish),
-                    (check[ 2 ], check[ 3 ])) )
+        crosses_centre = (intersect.Intersect((start, finish), (check[0], check[1])) or intersect.Intersect((start, finish), (check[2], check[3])))
     return [start, finish]
 
 
@@ -146,8 +141,7 @@ def Get_System_Info():
     # Some information about the run-time environment.
     # This gets included in savegames - it may be useful for
     # debugging problems using a savegame as a starting point.
-    return repr([time.asctime(), sys.platform, sys.version,
-            pygame.version.ver, sys.path, sys.prefix, sys.executable])
+    return repr([time.asctime(), sys.platform, sys.version, pygame.version.ver, sys.path, sys.prefix, sys.executable])
 
 
 def Get_Home():
@@ -156,4 +150,3 @@ def Get_Home():
         if ( home != None ):
             return home
     return None
-
