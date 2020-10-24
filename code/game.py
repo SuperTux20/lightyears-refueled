@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 #
 # The main loop of the game. This procedure is running
 # whenever the game is on the screen.
@@ -28,7 +28,7 @@ from mail import New_Mail
 class Game_Data:
     pass
 
-def Main_Loop(screen, clock, xxx_todo_changeme, 
+def Main_Loop(screen, clock, xxx_todo_changeme,
             restore_pos, challenge):
     # Initialisation of screen things.
 
@@ -36,10 +36,10 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
     menu_margin = height
     screen.fill((0,0,0))  # screen is black during init
     pygame.display.flip()
-    tutor.Off() 
+    tutor.Off()
 
     draw_obj.Flush_Draw_Obj_Cache() # in case of resize
-    
+
     # Grid setup
     (w,h) = GRID_SIZE
     assert w == h
@@ -51,7 +51,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
     menu_area = screen.subsurface(Rect(menu_margin, 0,
                         width - menu_margin, height))
     menu_width = width - menu_margin
-    
+
 
     # Constraint on resolution applied here:
     assert menu_width >= 100
@@ -62,7 +62,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         return ( v * height ) / 600
 
     margin = Sc(10)
-    x1 = menu_margin + margin 
+    x1 = menu_margin + margin
     menu_width1 = menu_width - ( margin * 2 )
 
     picture = resource.Load_Image("headersm.jpg")
@@ -71,23 +71,23 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
     picture_rect.top = margin
     picture_surf = screen.subsurface(picture_rect)
 
-    stats_rect = Rect(x1, picture_rect.bottom + margin, 
+    stats_rect = Rect(x1, picture_rect.bottom + margin,
                 menu_width1, Sc(120))
     stats_surf = screen.subsurface(stats_rect)
-    global_stats_rect = Rect(x1, stats_rect.bottom + margin, 
+    global_stats_rect = Rect(x1, stats_rect.bottom + margin,
                 menu_width1, Sc(110))
     global_stats_surf = screen.subsurface(global_stats_rect)
-    controls_rect = Rect(x1, global_stats_rect.bottom + margin, 
-                menu_width1, height - 
+    controls_rect = Rect(x1, global_stats_rect.bottom + margin,
+                menu_width1, height -
                     ( margin + global_stats_rect.bottom + margin ))
     controls_surf = screen.subsurface(controls_rect)
 
     def Special_Refresh():
-        extra.Tile_Texture(screen, "rivets.jpg", 
-                Rect(menu_margin, 0, 
+        extra.Tile_Texture(screen, "rivets.jpg",
+                Rect(menu_margin, 0,
                     menu_width, screen.get_rect().height))
 
-        edge = Rect(menu_margin, -10, 
+        edge = Rect(menu_margin, -10,
             menu_width + 10, screen.get_rect().height + 10)
 
         for r in [ stats_rect, global_stats_rect, edge ]:
@@ -167,14 +167,14 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
 
     if ( restore_pos == None ):
         DIFFICULTY.Set(challenge)
-    
-    
+
+
     # Game variables
     g.season = SEASON_START
     g.season_ends = 0
     g.season_effect = 0
     g.season_fx = Quiet_Season(g.net)
-    g.work_units_used = 0 
+    g.work_units_used = 0
     g.challenge = challenge
     g.difficulty_level = 1.0
     g.work_timer = 0.1
@@ -195,7 +195,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         lev[ MENU_INTERMEDIATE ] = "an Intermediate"
         lev[ MENU_EXPERT ] = "an Expert"
         lev[ MENU_PEACEFUL ] = "a Peaceful"
-    
+
         assert g.challenge != None
         assert g.challenge in lev
         New_Mail("You are playing " + lev[ g.challenge ] + " game.")
@@ -213,12 +213,11 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
             mail.Set_Day(g.game_time.Get_Day())
             assert g.challenge != None
             DIFFICULTY.Set(g.challenge)
-            New_Mail("Game restored. It is the " + 
-                g.season_fx.name + " season.")
+            New_Mail(f"Game restored. It is currently {g.season_fx.name} season.")
         else:
             New_Mail(result)
         return g
-    
+
     if ( restore_pos != None ):
         g.challenge = MENU_INTERMEDIATE
         g = Restore(g, restore_pos)
@@ -237,7 +236,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         if ( g.game_running ):
             flash = not flash
         menu_inhibit = ui.Is_Menu_Open() or not g.game_running
-        
+
 
         # Insert delay...
         # Hmm, I'm not sure if I know what this does.
@@ -249,8 +248,8 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         fps_count += 1
         if ( fps_count > 100 ):
             if ( DEBUG ):
-                print('%1.2f fps' % ( float(fps_count) / ( rt_now - fps_time ) ))
-            fps_time = rt_now 
+                print(f"{math.floor(float(fps_count) / (rt_now - fps_time))} fps")
+            fps_time = rt_now
             fps_count = 0
 
         if ( not menu_inhibit ):
@@ -260,7 +259,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
 
         cur_time = g.game_time.time()
         mail.Set_Day(g.game_time.Get_Day())
-            
+
         ui.Draw_Game(game_screen_surf, g.season_fx)
 
         #if ( flash ):
@@ -271,20 +270,19 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         elif ( g.challenge == MENU_PEACEFUL ):
             until_next = [ ((128,128,128), 12, "Peaceful mode") ]
         else:
-            until_next = [ ((128,128,128), 12, "(%d days until next season)" %
-                        (( g.season_ends - cur_time ) + 1 )) ]
+            until_next = [ ((128,128,128), 12, f"{math.floor((g.season_ends - cur_time) + 1)} days until next season)") ]
 
         ui.Draw_Stats(stats_surf, [
-              ((128,0,128), 18, "Day %u" % g.game_time.Get_Day()),
+              ((128,0,128), 18, f"Day {g.game_time.Get_Day()}"),
               ((128,128,0), 18, g.season_fx.name + " season") ] +
-              until_next + 
+              until_next +
                 g.season_fx.Get_Extra_Info())
         ui.Draw_Controls(controls_surf)
 
         if ( menu_inhibit ):
             current_menu.Draw(screen)
             alarm_sound.Set(0.0)
-        
+
         stats_back = (0,0,0)
         supply = g.net.hub.Get_Steam_Supply()
         demand = g.net.hub.Get_Steam_Demand()
@@ -299,25 +297,24 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
 
                 New_Mail("Danger! The City needs more steam!", (255,0,0))
                 g.game_ends_at = cur_time + DIFFICULTY.GRACE_TIME
-                New_Mail("Game will end on Day %u unless supplies are increased." % (
-                    int(g.game_ends_at) ), (255,0,0))
+                New_Mail(f"Game will end on Day {g.game_ends_at} unless supplies are increased.", (255,0,0))
 
-            if ( flash ): 
+            if ( flash ):
                 demand_colour = (255, 0, 0)
                 if ( not menu_inhibit ):
                     alarm_sound.Set(0.6)
-            else:         
+            else:
                 demand_colour = (128, 0, 0)
                 stats_back = (100, 0, 0)
 
         elif ( g.net.hub.Get_Pressure() < PRESSURE_WARNING ):
 
             g.game_ends_at = None
-            if ( flash ): 
+            if ( flash ):
                 demand_colour = (255, 100, 0)
                 if ( not menu_inhibit ):
                     alarm_sound.Set(0.3)
-            else:         
+            else:
                 demand_colour = (128, 50, 0)
                 stats_back = (50, 25, 0)
         else:
@@ -338,17 +335,14 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
         wu_unused = avw - g.work_units_used
         if ( not menu_inhibit ):
             global_stats_surf.fill(stats_back)
-            stats.Draw_Stats_Window(global_stats_surf, [ 
-                  (CITY_COLOUR, 18, "Work Units Available"),
-                  (None, None, (wu_unused, (255,0,255), 
-                              avw, (0,0,0))),
-                  (CITY_COLOUR, 12, str(wu_unused) + " of " +
-                          str(avw) + " total"),
-                  (CITY_COLOUR, 18, "City - Supply:Demand"),
-                  (demand_colour, 24, "%1.1f U : %1.1f U" % (
-                            supply, demand)),
-                  (CITY_COLOUR, 18, "City - Steam Pressure"),
-                  (None, None, g.net.hub.Get_Pressure_Meter())])
+            stats.Draw_Stats_Window(global_stats_surf, [
+                  (CITY_COLOUR, 18, "Steam Pressure"),
+                  (CITY_COLOUR, 18, "Supply : Demand"),
+                  (demand_colour, 24, f"{round(supply, 1)} : {round(demand, 1)}"),
+                  (None, None, g.net.hub.Get_Pressure_Meter()),
+                  (CITY_COLOUR, 0, ""),
+                  (CITY_COLOUR, 12, f"{wu_unused} of {avw} work units available"),
+                  (None, None, (wu_unused, (255,0,255), avw, (0,0,0)))])
 
         if ( g.challenge == MENU_TUTORIAL ):
             tutor.Draw(screen, g)
@@ -374,7 +368,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
             # Seasonal periodic effects
             g.season_effect = cur_time + g.season_fx.Get_Period()
             g.season_fx.Per_Period()
-        
+
         if ((( not tutor.Permit_Season_Change() )
         and ( g.season == SEASON_QUIET ))
         or ( g.challenge == MENU_PEACEFUL )):
@@ -406,8 +400,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
             g.season_effect = cur_time + ( g.season_fx.Get_Period() / 2 )
 
             if ( g.challenge != MENU_PEACEFUL ):
-                New_Mail("The " + g.season_fx.name + 
-                                " season has started.", (200,200,200))
+                New_Mail(f"The {g.season_fx.name} season has started.", (200,200,200))
 
         just_ended = False
         if (( g.game_ends_at != None )
@@ -419,7 +412,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
             New_Mail("Game Over!", (255,255,0))
             sound.FX("krankor")
             just_ended = True
-        
+
         elif (( g.net.hub.tech_level >= DIFFICULTY.CITY_MAX_TECH_LEVEL )
         and ( g.game_running )):
             # Game over - you win!
@@ -446,7 +439,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
 
             elif (( e.type == MOUSEBUTTONDOWN )
             or ( e.type == MOUSEMOTION )):
-                if (( e.type == MOUSEBUTTONDOWN ) 
+                if (( e.type == MOUSEBUTTONDOWN )
                 and ( e.button != 1 )):
                     if ( not menu_inhibit ):
                         ui.Right_Mouse_Down()
@@ -477,13 +470,15 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
                 if ( DEBUG ):
                     # Cheats.
                     if ( e.key == K_F10 ):
-                        New_Mail("SEASON ADVANCE CHEAT")
-                        g.season_ends = 0 
+                        New_Mail("Cheat used: Advanced to next season.")
+                        g.season_ends = 0
                     elif ( e.key == K_F9 ):
+                        New_Mail("Cheat used: Screen filled with white.")
                         screen.fill((255,255,255))
                     elif ( e.key == K_F8 ):
                         # Lose the game cheat
                         # Heh, worst cheat ever.
+                        New_Mail("Cheat used: Game ended.")
                         g.game_ends_at = cur_time
 
             e = pygame.event.poll()
@@ -526,7 +521,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
                     # Default option - back to game
                     if ( not g.game_running ):
                         New_Mail("Sorry - the game has finished")
-                    ui.Reset() 
+                    ui.Reset()
 
             else:
                 # It's another menu! That means it's the save menu.
@@ -536,7 +531,7 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
                         g = Restore(g, cmd)
 
                     else:
-                        label = "Day %u - %s season - %s" % (g.game_time.Get_Day(), 
+                        label = "Day %u - %s season - %s" % (g.game_time.Get_Day(),
                                 g.season_fx.name, time.asctime())
 
                         g.net.Make_Ready_For_Save()
@@ -569,10 +564,10 @@ def Main_Loop(screen, clock, xxx_todo_changeme,
     tutor.Off()
 
     # About to exit. Blackout.
-    screen.fill((0,0,0)) 
+    screen.fill((0,0,0))
 
     if ( stats_review ):
         review.Review(screen, (width, height), g, g.historian)
-        
+
     return quit
 

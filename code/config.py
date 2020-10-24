@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 import pickle, startup, os, extra, primitives
 
@@ -37,22 +37,22 @@ def Initialise(delete_file):
         return
 
     try:
-        f = file(FILENAME, "rb")
+        f = open(FILENAME, "rb")
         cfg2 = pickle.load(f)
         f.close()
         if cfg2.version == CFG_VERSION:
             # Configuration is valid, we can use it.
             cfg = cfg2
-    except Exception as x:
+    except Exception:
         pass
 
 def Save():
     global cfg, FILENAME
 
     try:
-        f = file(FILENAME, "wb")
+        f = open(FILENAME, "wb")
         pickle.dump(cfg, f)
         f.close()
-    except Exception as x:
+    except Exception:
         pass
 

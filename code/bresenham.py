@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 
 
@@ -11,7 +11,7 @@
 # Page 78, Computer Graphics Principles and Practice (2nd. Ed), Foley et al.
 
 def Line(xxx_todo_changeme, xxx_todo_changeme1):
-   
+
     (x1,y1) = xxx_todo_changeme
     (x2,y2) = xxx_todo_changeme1
     x1 = int(x1)
@@ -50,7 +50,7 @@ def Line(xxx_todo_changeme, xxx_todo_changeme1):
             d += incr_ne # move northeast
             y += direction
         l.append((x,y))
-    
+
     if ( y != y2 ):
         l.append((x2,y2))
 

@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 
 # Line intersection algorithm. Thanks to page 113 of
@@ -22,7 +22,7 @@ def Intersect(xxx_todo_changeme, xxx_todo_changeme1):
     if ( a == 0 ):
         return None
 
-    b = ((( xa * ya1 ) + ( xb1 * ya ) - ( xa1 * ya )) - ( xa * yb1 )) 
+    b = ((( xa * ya1 ) + ( xb1 * ya ) - ( xa1 * ya )) - ( xa * yb1 ))
     tb = float(b) / float(a)
 
     if (( tb <= 0 ) or ( tb >= 1 )):
@@ -37,7 +37,7 @@ def Intersect(xxx_todo_changeme, xxx_todo_changeme1):
 
     if (( ta <= 0 ) or ( ta >= 1 )):
         return None # doesn't intersect
-    
+
     x = xb1 + ( xb * tb )
     y = yb1 + ( yb * tb )
     return (x,y)
@@ -67,7 +67,7 @@ def Test():
         ya2 = ya1 + ( math.sin(aang) * 10.0 )
         yb2 = yb1 + ( math.sin(bang) * 10.0 )
 
-        z = Intersect(((xa1,ya1),(xa2,ya2)),((xb1,yb1),(xb2,yb2))) 
+        z = Intersect(((xa1,ya1),(xa2,ya2)),((xb1,yb1),(xb2,yb2)))
         (xi, yi) = z
         assert math.hypot(xi - x, yi - y) < 0.0001
 
@@ -76,10 +76,8 @@ def Test():
     BT((2,2),((1,1),(3,3)),((1,3),(3,1)))   # X
     BT(None,((1,1),(3,3)),((2,2),(4,4)))    # parallel lines, on top of each other
 
-    for i in range(10000):
+    for _ in range(10000):
         Rnd()
 
 if ( __name__ == "__main__" ):
-    Test() 
-            
-
+    Test()

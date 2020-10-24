@@ -1,40 +1,34 @@
 # 20,000 Lightyears Into Space: Refueled
-Taking the old "20,000 Lightyears Into Space" and bringing it up to modern standards.
+Taking the game "20,000 Lightyears Into Space" and bringing it up to modern standards.
+[Jack Whitham's 20,000 Lightyears Into Space, version 1.4](https://www.jwhitham.org/20kly/)
 
-### Old README by Jack Whitham for version 1.4:
-20,000 Light-Years Into Space
-version 1.4
-
-Instructions:
+## Instructions:
 
     Please refer to the HTML documents in the game directory.
-    For game updates, please see http://www.jwhitham.org/
 
     If your configuration file gets screwed up somehow, run Lightyears with
     the --safe parameter to reset the configuration. This will not affect
     saved games.
 
-License:
+## License:
 
     20,000 Light-Years Into Space, a computer game
-    Copyright (C) 2006-11 Jack Whitham
+    Copyright (C) 2006-11 Jack Whitham and 2020 Tux Penguin
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 2,
+    it under the terms of the GNU General Public License version 3,
     as published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301  USA
+    along with this program.
 
 
-List of files, with associated copyrights:
+## List of files, with associated copyrights:
 
     Files that are (c) 2006-11 by Jack Whitham:
     ./README.txt

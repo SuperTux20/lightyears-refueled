@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 
 import pygame , random , sys , math , time , webbrowser , urllib.request, urllib.parse, urllib.error , os
@@ -13,7 +13,6 @@ from primitives import *
 
 DEB_ICON = '/usr/share/pixmaps/lightyears.xpm'
 DEB_MANUAL = '/usr/share/doc/lightyears/html/index.html'
-                
 
 def Main(data_dir):
 
@@ -53,7 +52,7 @@ def Main(data_dir):
             if resolution[:2] not in pygame.display.list_modes():
                 RESOLUTIONS.remove(resolution)
 
-        
+
     if ( no_sound ):
         resource.No_Sound()
     else:
@@ -84,7 +83,7 @@ def Main(data_dir):
     while ( not quit ):
         if ( config.cfg.resolution != (width, height) ):
 
-            # As the toggle mode thing doesn't work outside of Unix, 
+            # As the toggle mode thing doesn't work outside of Unix,
             # the fallback strategy is to do set_mode again.
             # But if you set the same mode, then nothing happens.
             # So:
@@ -112,7 +111,7 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
 
     stats.Set_Font_Scale(config.cfg.font_scale)
 
-    main_menu = current_menu = menu.Menu([ 
+    main_menu = current_menu = menu.Menu([
                 (None, None, []),
                 (MENU_TUTORIAL, "Play Tutorial", []),
                 (MENU_NEW_GAME, "Play New Game", []),
@@ -123,15 +122,15 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
                 (MENU_MANUAL, "View Manual", []),
                 (MENU_UPDATES, "Check for Updates", []),
                 (None, None, []),
-                (MENU_QUIT, "Exit to " + extra.Get_OS(), 
+                (MENU_QUIT, "Exit to " + extra.Get_OS(),
                     [ K_ESCAPE , K_F10 ])])
-    resolution_menu = menu.Menu( 
+    resolution_menu = menu.Menu(
                 [(None, None, [])] + [
                 (w, "%u x %u" % (w,h), [])
                     for (w, h, fs) in RESOLUTIONS ] +
                 [(None, None, []),
                 (-1, "Cancel", [])])
-    difficulty_menu = menu.Menu( 
+    difficulty_menu = menu.Menu(
                 [(None, None, []),
                 (MENU_TUTORIAL, "Tutorial", []),
                 (None, None, []),
@@ -155,7 +154,7 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
         # Main menu
         screen.fill((0,0,0))
         screen.blit(menu_image, (0,0))
-      
+
         y = 5
         sz = 11
         for text in copyright:
@@ -169,7 +168,7 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
             img_r.top = y
             screen.blit(img, img_r.topleft)
             y += img_r.height
-       
+
         (quit, cmd) = extra.Simple_Menu_Loop(screen, current_menu,
                 (( width * 3 ) / 4, 10 + ( height / 2 )))
 
@@ -178,7 +177,7 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
                 current_menu = difficulty_menu
 
             elif ( cmd == MENU_TUTORIAL ):
-                quit = game.Main_Loop(screen, clock, 
+                quit = game.Main_Loop(screen, clock,
                         (width,height), None, MENU_TUTORIAL)
 
             elif ( cmd == MENU_LOAD ):
@@ -211,7 +210,7 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
                     # Debian manual present
                     url = 'file://' + DEB_MANUAL
                 else:
-                    base = os.path.abspath(resource.Path(os.path.join("..", 
+                    base = os.path.abspath(resource.Path(os.path.join("..",
                             "manual", "index.html")))
                     if os.path.isfile(base):
                         # Upstream package manual present
@@ -224,8 +223,8 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
                     webbrowser.open(url, True, True)
                 except:
                     pass
-                
-                
+
+
         elif ( cmd != None ):
             if ( current_menu == resolution_menu ):
                 for (w, h, fs) in RESOLUTIONS:
@@ -237,16 +236,16 @@ def Main_Menu_Loop(name, clock, screen, xxx_todo_changeme):
 
             elif ( current_menu == difficulty_menu ):
                 if ( cmd >= 0 ):
-                    quit = game.Main_Loop(screen, clock, 
+                    quit = game.Main_Loop(screen, clock,
                             (width,height), None, cmd)
 
             else: # Load menu
                 if ( cmd >= 0 ):
                     # Start game from saved position
-                    quit = game.Main_Loop(screen, clock, 
+                    quit = game.Main_Loop(screen, clock,
                             (width,height), cmd, None)
 
-            current_menu = main_menu 
+            current_menu = main_menu
 
     return True
 
@@ -283,7 +282,7 @@ def Update_Feature(screen, menu_image):
 
             pygame.time.wait( 40 )
             timer -= 40
-   
+
     Message(["Connecting to Website..."])
     url = ( CGISCRIPT + "a=1" )
     new_version = None
@@ -307,7 +306,7 @@ def Update_Feature(screen, menu_image):
     new_version = new_version.strip()
 
     # Protect user from possible malicious tampering
-    # via a man-in-the-middle attack. I don't want to 
+    # via a man-in-the-middle attack. I don't want to
     # render an unfiltered string.
     for i in new_version:
         if (( i != '.' )

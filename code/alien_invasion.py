@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 # Mysterious alien attackers.
 # Look away now, unless you want to understand how the aliens work.
@@ -30,7 +30,7 @@ class Alien_Season(Quiet_Season):
 
     def __Compute_Targets(self,m):
         # Analyse your network to determine the strategy
-        # that will be used by the aliens. 
+        # that will be used by the aliens.
         # The aliens may choose to attack the pipe that is
         # carrying the most current (this is the most
         # likely strategy)
@@ -56,9 +56,9 @@ class Alien_Season(Quiet_Season):
         # Or they might attack the busiest steam generator.
         busy_generator = [ (sum([ abs(pipe.current_n1_to_n2)
                         for pipe in node.pipes]), node)
-                for node in self.net.node_list 
+                for node in self.net.node_list
                 if isinstance(node, Well_Node) ]
-        
+
         #print 'Busy generator:'
         #for (score, node) in busy_generator[ -m: ]:
         #    print score,node.pos
@@ -67,7 +67,7 @@ class Alien_Season(Quiet_Season):
         # TODO. Other attack strategies?
 
         # Aliens never attack the city.
-        self.target_list = [ item for (score, item) in target 
+        self.target_list = [ item for (score, item) in target
                         if not isinstance(item, City_Node) ]
 
     def Per_Period(self):
@@ -103,7 +103,7 @@ class Alien_Season(Quiet_Season):
             # No targets! Therefore, no aliens.
             return
 
-        for i in range(num_aliens):
+        for _ in range(num_aliens):
             x = cx + ( alien_radius * math.cos(alien_angle) )
             y = cy + ( alien_radius * math.sin(alien_angle) )
             a = Alien()
@@ -130,7 +130,7 @@ class Alien_Season(Quiet_Season):
             self.alien_list.pop(0)
 
     def Get_Period(self):
-        return 16 
+        return 16
 
     def Per_Frame(self, frame_time):
         for alien in self.alien_list:
@@ -144,7 +144,7 @@ class Alien_Season(Quiet_Season):
         for alien in self.alien_list:
             alien.Draw(output, update_area)
 
-        
+
     def Get_Extra_Info(self):
         count = len([ x for x in self.alien_list if x.rookie ])
         if ( count != 0 ):
@@ -187,7 +187,7 @@ class Alien:
                 return
             self.current_target = self.targets.pop(0)
             self.countdown = self.MAX_TIME_PER_TARGET
-            
+
             # Compute initial attack angle
             (x, y) = self.pos
             (tx, ty) = self.current_target.pos
@@ -227,7 +227,7 @@ class Alien:
                 dist = math.hypot(tx - x, ty - y)
                 if ( dist > 0.1 ):
                     # Still en-route to target zone
-                    self.speed += self.ACC_PER_SECOND_PER_SECOND 
+                    self.speed += self.ACC_PER_SECOND_PER_SECOND
                     if ( self.speed > self.MAX_DISTANCE_PER_SECOND ):
                         self.speed = self.MAX_DISTANCE_PER_SECOND
                     s = float(self.speed) * float(frame_time)
@@ -259,8 +259,8 @@ class Alien:
                 alien_firing_sound.Set(1.0)
 
     def Draw(self, output, update_area):
-        pygame.draw.polygon(output, self.colour1, self.points) 
-        pygame.draw.polygon(output, self.colour2, self.points, 1) 
+        pygame.draw.polygon(output, self.colour1, self.points)
+        pygame.draw.polygon(output, self.colour2, self.points, 1)
         if ( self.laser != None ):
             (a,b) = self.laser
             pygame.draw.line(output, (255, 255, 255), a, b)

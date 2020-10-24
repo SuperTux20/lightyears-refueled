@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 # Do you believe in the users?
 
@@ -32,7 +32,7 @@ class User_Interface:
         img = pygame.transform.rotate(img, 90 * random.randint(0,3))
         if ( random.randint(0,1) == 0 ):
             img = pygame.transform.flip(img, True, False)
-            
+
         self.background = pygame.transform.scale(img, (width, height))
 
         self.steam_effect = particle.Make_Particle_Effect(particle.Steam_Particle)
@@ -97,7 +97,7 @@ class User_Interface:
                 for y in range(0,output.get_rect().height,2):
                     pygame.draw.line(output, (0,0,0),
                         (0,y), (x,y))
-            
+
             for u in self.update_area_list:
                 output.blit(self.background, u.topleft, u)
 
@@ -123,7 +123,7 @@ class User_Interface:
             if ( n.emits_steam ):
                 self.Add_Steam_Effect(output, n.pos)
 
-                
+
         season_fx.Draw(output, self.Update_Area)
 
 
@@ -151,7 +151,7 @@ class User_Interface:
                 self.Update_Area(r)
 
                 pygame.draw.line(output, colour, sp, ep, 2)
-    
+
         for item in self.net.popups:
             r = item.Draw_Popup(output)
             self.Update_Area(r)
@@ -160,7 +160,7 @@ class User_Interface:
 
         if ( not self.Is_Menu_Open () ):
             self.blink = 0x80 | ( 0xff & ( self.blink + 0x10 ))
-            self.steam_effect_frame = ( 
+            self.steam_effect_frame = (
                 self.steam_effect_frame + 1 ) % len(self.steam_effect)
 
         if ( DEBUG_GRID ):
@@ -193,7 +193,7 @@ class User_Interface:
             stats.Draw_Stats_Window(output, l)
             self.stats_hash = h
 
-        
+
     def Draw_Controls(self, output):
         if ( self.control_menu == None ):
             self.__Make_Control_Menu(output.get_rect().width)
@@ -298,7 +298,7 @@ class User_Interface:
 
             elif ( self.selection != None ):
                 self.selection.Sound_Effect()
-                
+
         elif ( isinstance(self.net.ground_grid[ gpos ], Node)):
             # Contains node
 
@@ -384,7 +384,7 @@ class User_Interface:
                 (DESTROY, "&Destroy", [ K_d , K_BACKSPACE ]),
                 (UPGRADE, "&Upgrade", [ K_u ]),
                 (None, None, None),
-                (OPEN_MENU, "Menu", [ K_ESCAPE ])], 
+                (OPEN_MENU, "Menu", [ K_ESCAPE ])],
                 pictures, width)
 
     def Frame_Advance(self, frame_time):

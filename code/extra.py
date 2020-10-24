@@ -1,9 +1,9 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
 #
-# Here lie various pieces of shared code that 
+#
+# Here lie various pieces of shared code that
 # don't merit their own modules.
 
 
@@ -93,7 +93,7 @@ def Make_Quake_SF_Points(off):
             start = (-off, random.randint(0,h - 1))
             finish = (h + off, random.randint(0,h - 1))
 
-        crosses_centre = ( 
+        crosses_centre = (
                 intersect.Intersect((start, finish),
                     (check[ 0 ], check[ 1 ]))
                 or intersect.Intersect((start, finish),
@@ -123,7 +123,7 @@ def Simple_Menu_Loop(screen, current_menu, xxx_todo_changeme6):
             e = pygame.event.poll()
 
         cmd = current_menu.Get_Command()
-        current_menu.Select(None) # consume 
+        current_menu.Select(None) # consume
 
     return (quit, cmd)
 
@@ -146,7 +146,7 @@ def Get_System_Info():
     # Some information about the run-time environment.
     # This gets included in savegames - it may be useful for
     # debugging problems using a savegame as a starting point.
-    return repr([time.asctime(), sys.platform, sys.version, 
+    return repr([time.asctime(), sys.platform, sys.version,
             pygame.version.ver, sys.path, sys.prefix, sys.executable])
 
 

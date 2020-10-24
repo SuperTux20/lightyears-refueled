@@ -1,13 +1,13 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 # Simple animation of map objects
-# 
+#
 # I wrote this very late at night. It may well be total shit
-# but it appears to work. I am stressed out and should probably 
-# go to bed. 
+# but it appears to work. I am stressed out and should probably
+# go to bed.
 #
 # Main thing: you can't have surfaces in Draw_Obj because it
 # has to be pickled. That's why they are hidden on the other

@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 
 import pygame , time
@@ -40,7 +40,7 @@ def Draw_Mail(output):
     # Show current messages
     y = output.get_rect().height - MSG_MARGIN
 
-    for (tm, surf) in reversed(__messages):
+    for (_, surf) in reversed(__messages):
         y -= surf.get_rect().height
 
         r = surf.get_rect()
@@ -55,7 +55,7 @@ def Set_Day(day):
 def New_Mail(text, colour=(128,128,128)):
     global __messages, __day, __change
     text = ( "Day %u: " % __day ) + text
-    __messages.append((time.time() + MSG_EXPIRY_TIME, 
+    __messages.append((time.time() + MSG_EXPIRY_TIME,
             stats.Get_Font(20).render(text, True, colour)))
     __change = True
 

@@ -1,7 +1,7 @@
-# 
+#
 # 20,000 Light Years Into Space
 # This game is licensed under GPL v2, and copyright (C) Jack Whitham 2006-07 and Tux Penguin 2020.
-# 
+#
 
 # Items that you will find on the map.
 # All inherit from the basic Item.
@@ -65,7 +65,7 @@ class Building(Item):
         self.health = 0
         self.complete = False
         self.was_once_complete = False
-        self.max_health = 5 * HEALTH_UNIT 
+        self.max_health = 5 * HEALTH_UNIT
         self.base_colour = (255,255,255)
         self.connection_value = 0
         self.other_item_stack = []
@@ -108,10 +108,10 @@ class Building(Item):
 
     def Is_Destroyed(self):
         return self.destroyed
-    
+
     def Needs_Work(self):
         return ( self.max_health != self.health )
-        
+
     def Is_Broken(self):
         return self.Needs_Work()
 
@@ -132,7 +132,7 @@ class Building(Item):
 
     def Get_Popup_Items(self):
         return [ self.Get_Health_Meter() ]
-    
+
     def Get_Health_Meter(self):
         return (self.health, (0,255,0), self.max_health, (255,0,0))
 
@@ -142,7 +142,7 @@ class Building(Item):
         y -= 12
         return stats.Draw_Bar_Meter(output, self.Get_Popup_Items(), (x,y), 32, 5)
 
-    def Get_Tech_Level(self):            
+    def Get_Tech_Level(self):
         return ("Tech Level %d" % self.tech_level)
 
     def Get_Information(self):
@@ -174,7 +174,7 @@ class Building(Item):
                 l += [ (self.Get_Diagram_Colour(), 15, "Not Built") ]
 
         return l
-    
+
     def Get_Diagram_Colour(self):
         (r,g,b) = self.base_colour
         if ( self.complete ):
@@ -253,7 +253,7 @@ class Node(Building):
                 self.Get_Pressure_Meter() ]
 
     def Get_Pressure_Meter(self):
-        return (int(self.Get_Pressure()), (100, 100, 255), 
+        return (int(self.Get_Pressure()), (100, 100, 255),
                     int(self.steam.Get_Capacity()), (0, 0, 100))
 
     def Get_Information(self):
@@ -265,8 +265,7 @@ class Node(Building):
 
     def Draw_Selected(self, output, highlight):
         ra = ( Get_Grid_Size() / 2 ) + 2
-        pygame.draw.circle(output, highlight,
-            Grid_To_Scr(self.pos), ra , 2 )
+        pygame.draw.circle(output, highlight, Grid_To_Scr(self.pos), ra , 2)
         return Grid_To_Scr_Rect(self.pos).inflate(ra,ra)
 
     def Sound_Effect(self):
@@ -278,7 +277,7 @@ class City_Node(Node):
         (x,y) = xxx_todo_changeme2
         Node.__init__(self,(x,y),name)
         self.base_colour = CITY_COLOUR
-        self.avail_work_units = 1 
+        self.avail_work_units = 1
         self.city_upgrade = 0
         self.city_upgrade_start = 1
         self.draw_obj = draw_obj.Draw_Obj("city1.png", 3)
@@ -299,7 +298,7 @@ class City_Node(Node):
                 sound.FX("mechanical_1")
 
                 self.city_upgrade = self.city_upgrade_start = (
-                    ( CITY_UPGRADE_WORK + ( self.tech_level * 
+                    ( CITY_UPGRADE_WORK + ( self.tech_level *
                     DIFFICULTY.CITY_UPGRADE_WORK_PER_LEVEL )) * HEALTH_UNIT )
                 self.avail_work_units += 1 # Extra steam demand
             else:
@@ -330,7 +329,7 @@ class City_Node(Node):
         return self.avail_work_units
 
     def Get_Steam_Demand(self):
-        return (( self.avail_work_units * 
+        return (( self.avail_work_units *
                 WORK_STEAM_DEMAND ) + STATIC_STEAM_DEMAND )
 
     def Get_Steam_Supply(self):
@@ -340,7 +339,7 @@ class City_Node(Node):
                 supply -= pipe.current_n1_to_n2
             else:
                 supply += pipe.current_n1_to_n2
-            
+
         return supply
 
     def Get_Information(self):
@@ -354,7 +353,7 @@ class City_Node(Node):
         if ( self.city_upgrade == 0 ):
             return (0, (0,0,0), 1, (64,64,64))
         else:
-            return (self.city_upgrade_start - self.city_upgrade, (255,255,50), 
+            return (self.city_upgrade_start - self.city_upgrade, (255,255,50),
                  self.city_upgrade_start, (64,64,64))
 
     def Steam_Think(self):
@@ -378,7 +377,7 @@ class City_Node(Node):
         pygame.draw.rect(output, highlight,r,2)
         return r.inflate(2,2)
 
-    def Get_Tech_Level(self):            
+    def Get_Tech_Level(self):
         return Building.Get_Tech_Level(self) + (" of %d" % DIFFICULTY.CITY_MAX_TECH_LEVEL )
 
     def Sound_Effect(self):
@@ -399,7 +398,7 @@ class Well_Node(Node):
 
     def Steam_Think(self):
         if ( not self.Needs_Work() ):
-            self.production = (DIFFICULTY.BASIC_STEAM_PRODUCTION + (self.tech_level * 
+            self.production = (DIFFICULTY.BASIC_STEAM_PRODUCTION + (self.tech_level *
                     DIFFICULTY.STEAM_PRODUCTION_PER_LEVEL))
             self.steam.Source(self.production)
         else:
@@ -408,7 +407,7 @@ class Well_Node(Node):
 
     def Get_Information(self):
         return Node.Get_Information(self) + [
-            (self.base_colour, 15, 
+            (self.base_colour, 15,
                 "Steam production: %1.1f U" % self.production) ]
 
     def Sound_Effect(self):
@@ -446,7 +445,7 @@ class Pipe(Building):
             sound.FX("crisp")
             # Upgrade a pipe for lower resistance and more health.
             self.tech_level += 1
-            self.max_health += int( PIPE_UPGRADE_WORK_FACTOR * 
+            self.max_health += int( PIPE_UPGRADE_WORK_FACTOR *
                         self.length * HEALTH_UNIT )
             self.complete = False
             self.resistance *= PIPE_UPGRADE_RESISTANCE_FACTOR
@@ -514,7 +513,7 @@ class Pipe(Building):
 
         if ( self.current_n1_to_n2 == 0.0 ):
             return
-            
+
         r = Rect(0,0,1,1)
         for pos in self.dot_positions:
             r.center = pos
@@ -526,24 +525,23 @@ class Pipe(Building):
 
         pos_a = (x1, y1 + 1)
         pos_b = (x2, y2 + 1)
-        interp = self.dot_drawing_offset
         colour = (0, 255, 0) # brigt green dots
 
-        self.dot_positions = [ 
+        self.dot_positions = [
             extra.Partial_Vector(pos_a, pos_b, (interp, positions))
-            for interp in range(self.dot_drawing_offset, positions, 
+            for interp in range(self.dot_drawing_offset, positions,
                     self.SFACTOR) ]
 
         for pos in self.dot_positions:
             r.center = pos
             output.fill(colour, r)
-    
+
     # Tune these to alter the speed of the dots.
     SFACTOR = 512
     FUTZFACTOR = 4.0 * 35.0
 
     def Frame_Advance(self, frame_time):
-        self.dot_drawing_offset += int(self.FUTZFACTOR * 
+        self.dot_drawing_offset += int(self.FUTZFACTOR *
                 frame_time * self.current_n1_to_n2)
 
         if ( self.dot_drawing_offset < 0 ):
