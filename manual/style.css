@@ -1,0 +1,22 @@
+body {
+    background-image: url("../data/006metal.jpg");
+    background-color: #400000;
+}
+
+a,
+a:visited,
+body {
+    color: white;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
